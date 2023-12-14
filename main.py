@@ -27,13 +27,30 @@ def display_main_menu():
 
 def start_new_game(difficulty):
     """
-    initializes a new game with the current difficulty setting.
-    creates a GameBoard instance,
-    handle ship placement & game progression.
+    initializes a new game with current difficulty.
+    creates a GameBoard instance based on difficulty,
+    handles random ship placement & game progression.
     """
     print(f"Starting a new game with difficulty: {difficulty}")
-    game_board = GameBoard(size=8 if difficulty == 'Easy' else 5)
-    # Add logic to place ships and start the game
+    board_ size = 8 if difficulty == 'Easy' else 5
+    game_board = GameBoard(size=board_size)
+    
+    ships = [Ship("Battleship", 4), Ship("Cruiser, 3"),
+            Ship("Submarine", 3), ("Destroyer", 2), Ship("Patrol Boat", 1)]
+    # Define ships
+
+    for ship in ships:
+        placed = False
+        while not placed:
+            x = radnom.randint(0, board_size -1)
+            y = random.randint(0, board_size -1)
+            horizontal = random.choice([True, False])
+            placed = game_board.place_ship(ship, (x, y), horizontal)
+            # Generate ranom position & orientation
+    # Automatically place ships on board
+
+    print("Game started! Here's your board:")
+
 
 def change_difficulty():
     """
