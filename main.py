@@ -1,6 +1,7 @@
 # Serves as entry point for game. 
 # Sets up main loop and calls main menu.
-
+# Connects main menu options with corresponding game actions:
+# 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
 def display_main_menu():
     """
@@ -17,28 +18,58 @@ def display_main_menu():
     return choice
 
 
+def start_new_game(difficulty):
+    """
+    initializes a new game with the current difficulty setting.
+    creates a GameBoard instance,
+    handle ship placement & game progression.
+    """
+    print(f"Starting a new game with difficulty: {difficulty}")
+    game_board = GameBoard(size=8 if difficulty == 'Easy' else 5)
+    # Add logic to place ships and start the game
+
+def change_difficulty():
+    """
+    allows player to change the game's difficulty level.
+    """
+    print("Change difficulty functionality to be implemented.")
+    # Return a new difficulty value based on user choice
+
+def view_leaderboard():
+    """
+    displays the leaderboard
+    """
+    print("Leaderboard functionality to be implemented.")
+
+
 def main():
     """
     The main game loop.
     """
-    global current_difficulty
+    current_difficulty = "Easy" 
+    # Default difficulty
+
     while True:
         choice = display_main_menu()
         
         if choice == '1':
             print("Starting a new game...")
-            game_board = initialise_game_board(current_difficulty)
-            # Placeholder for starting a new game with game_board
+            start_new_game(current_difficulty)
         elif choice == '2':
-            change_difficulty()
-            # Placeholder for changing difficulty
+            print("Changing difficulty...")
+            current_difficulty = change_difficulty()
         elif choice == '3':
             print("Displaying leaderboard...")
-            # Placeholder for viewing the leaderboard
+            view_leaderboard()
         elif choice == '4':
             print("Exiting game. Goodbye!")
             break
         else:
             print("Invalid choice. Please try again.")
 
-main()
+if __name__ == "__main__":
+    main()
+# runs if directly called only
+# allows script to be imported in other py files
+# without automatically running the game. 
+# for reuse of functions/classes in other scripts.
