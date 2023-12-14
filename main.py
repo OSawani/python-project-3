@@ -31,7 +31,23 @@ def start_new_game(difficulty):
 def change_difficulty():
     """
     allows player to change the game's difficulty level.
+    presents player with two difficulty options.
+    player's choice determines the size of board used in the new game.
+    returns chosen difficulty as string.
     """
+    while True: 
+        print("\nSelect Difficulty:")
+        print("1. Easy! (8x8 Board for both player & computer.)")
+        print("2. Hard! (5x5 Board for player, 8x8 for computer!)")
+        
+        choice = input("Enter your choice (1-2): ")
+        if choice == "1":
+            return "Easy"
+        elif choice == "2":
+            return "Hard"
+        else:
+            print("Invalid choice. Please try again.")
+
     print("Change difficulty functionality to be implemented.")
     # Return a new difficulty value based on user choice
 
