@@ -1,5 +1,5 @@
 #Ship class represent real world entity ship
-#Ship class has class/common attributes: size, name.
+#Ship class has attributes: size, name.
 #Ship has methods/functions to track positions & determine status.
 
 class Ship:
