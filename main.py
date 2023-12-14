@@ -3,6 +3,13 @@
 # Connects main menu options with corresponding game actions:
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
+from gameboard import GameBoard
+from ship import Ship
+from leaderboard import Leaderboard 
+
+global_leaderboard = Leaderboard()
+# Global leaderboard instance
+
 def display_main_menu():
     """
     Displays the main menu options and handles user input.
@@ -39,7 +46,7 @@ def change_difficulty():
         print("\nSelect Difficulty:")
         print("1. Easy! (8x8 Board for both player & computer.)")
         print("2. Hard! (5x5 Board for player, 8x8 for computer!)")
-        
+
         choice = input("Enter your choice (1-2): ")
         if choice == "1":
             return "Easy"
