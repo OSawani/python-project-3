@@ -52,7 +52,7 @@ class GameBoard:
         for i in range(ship.size):
             x = position[0] + i if horizontal else position[0]
             y = position[1] if horizontal else position[1] + i
-            if x >= self.size or y >= self.size or self.board[x][y] != "~"
+            if x >= self.size or y >= self.size or self.board[x][y] != "~":
                 return False
         return True
 

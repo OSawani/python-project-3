@@ -3,9 +3,10 @@
 # Connects main menu options with corresponding game actions:
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
+import random
 from gameboard import GameBoard
 from ship import Ship
-from leaderboard import Leaderboard 
+from leaderboard import Leaderboard
 
 global_leaderboard = Leaderboard()
 # Global leaderboard instance
@@ -15,41 +16,17 @@ def display_main_menu():
     Displays the main menu options and handles user input.
     Returns a valid choice as an integer.
     """
-    print("\nWelcome to Battleship!")
+    print("\n" + "=" * 28)
+    print("||    BATTLESHIP GAME    ||")
+    print("=" * 28)
     print("1. Start New Game")
     print("2. Change Difficulty")
     print("3. View Leaderboard")
-    print("4. Quit\n")
+    print("4. Quit")
+    print("=" * 28 + "\n")
 
     choice = input("Enter your choice (1-4): \n")
     return choice
-
-
-def start_new_game(difficulty):
-    """
-    initializes a new game with current difficulty.
-    creates a GameBoard instance based on difficulty,
-    handles random ship placement & game progression.
-    """
-    print(f"Starting a new game with difficulty: {difficulty}")
-    board_ size = 8 if difficulty == 'Easy' else 5
-    game_board = GameBoard(size=board_size)
-    
-    ships = [Ship("Battleship", 4), Ship("Cruiser, 3"),
-            Ship("Submarine", 3), ("Destroyer", 2), Ship("Patrol Boat", 1)]
-    # Define ships
-
-    for ship in ships:
-        placed = False
-        while not placed:
-            x = radnom.randint(0, board_size -1)
-            y = random.randint(0, board_size -1)
-            horizontal = random.choice([True, False])
-            placed = game_board.place_ship(ship, (x, y), horizontal)
-            # Generate ranom position & orientation
-    # Automatically place ships on board
-
-    print("Game started! Here's your board:")
 
 
 def change_difficulty():
@@ -71,15 +48,41 @@ def change_difficulty():
             return "Hard"
         else:
             print("Invalid choice. Please try again.")
-
-    print("Change difficulty functionality to be implemented.")
     # Return a new difficulty value based on user choice
+
 
 def view_leaderboard():
     """
     displays the leaderboard
     """
-    print("Leaderboard functionality to be implemented.")
+    leaderboard.display_leaderboard()
+
+
+def start_new_game(difficulty):
+    """
+    initializes a new game with current difficulty.
+    creates a GameBoard instance based on difficulty,
+    handles random ship placement & game progression.
+    """
+    print(f"Starting a new game with difficulty: {difficulty}")
+    board_size = 8 if difficulty == 'Easy' else 5
+    game_board = GameBoard(size = board_size)
+    
+    ships = [Ship("Battleship", 4), Ship("Cruiser, 3"),
+            Ship("Submarine", 3), ("Destroyer", 2), Ship("Patrol Boat", 1)]
+    # Define ships
+
+    for ship in ships:
+        placed = False
+        while not placed:
+            x = radnom.randint(0, board_size -1)
+            y = random.randint(0, board_size -1)
+            horizontal = random.choice([True, False])
+            placed = game_board.place_ship(ship, (x, y), horizontal)
+            # Generate ranom position & orientation
+    # Automatically place ships on board
+
+    print("Game started! Here's your board:")
 
 
 def main():
@@ -87,6 +90,7 @@ def main():
     The main game loop.
     """
     current_difficulty = "Easy" 
+    global_leaderboard = Leaderboard()
     # Default difficulty
 
     while True:
@@ -94,13 +98,13 @@ def main():
         
         if choice == '1':
             print("Starting a new game...")
-            start_new_game(current_difficulty)
+            start_new_game(current_difficulty, global_leaderboard)
         elif choice == '2':
             print("Changing difficulty...")
             current_difficulty = change_difficulty()
         elif choice == '3':
             print("Displaying leaderboard...")
-            view_leaderboard()
+            view_leaderboard(global_leaderboard)
         elif choice == '4':
             print("Exiting game. Goodbye!")
             break

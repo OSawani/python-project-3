@@ -7,18 +7,18 @@ class Ship:
     represents the different types of ships in the game, 
     attributes: size, position, and status (hit or not).
     """
-    def __init__(self, name, size)
-    """
-    sets ship's name & size.
-    initialises positions.
-    initialises list & hit counter.
-    """
-    self.name = name
-    self.size = size
-    self.positions = [] 
-    # List of tuples(x, y) for each ship segment
-    self.hits = 0 
-    # Number of hits the ship has taken
+    def __init__(self, name, size):
+        """"
+        sets ship's name & size.
+        initialises positions.
+        initialises list & hit counter.
+        """
+        self.name = name
+        self.size = size
+        self.positions = [] 
+        # List of tuples(x, y) for each ship segment
+        self.hits = 0 
+        # Number of hits the ship has taken
 
     def place(self, start_position, horizontal = True):
         """
