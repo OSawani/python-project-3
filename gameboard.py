@@ -59,7 +59,32 @@ class GameBoard:
 
     def take_shot(self, coordinates):
         """
-        handles shots taken by the player or computer,
-        logic for shots taken.
+        handles shooting at a coordinate:
+        updates the board based on the shot's coordinates.
+        checks if shot is a hit/miss and marks board with 'H'(hit)/'M'(miss).
+        prevents shooting at the same location more than once.
         """
-        pass   
+        x, y = coordinates
+        if self.board[x][y] in ["H", "M"]:
+            return "Already hit"
+        
+        hit = any(ship for ship in self.ship if coordinates in ship.positions)
+        if hit:
+            self.board[x][y] = "H"
+            self.update_ship_hit(coordinates)
+            return "Hit!"
+        else:
+            self.board[x][y] = "M"
+            return "Miss"
+    
+
+    def update_ship_hit(self, coordinates):
+        """
+        updates ship's status when hit's confirmed.
+        calls take_hit on the ship and checks if the ship is sunk.
+        """
+        for ship in self.ships:
+            if coordinates in ship.positions:
+                ship.take_hit()
+                if ship.is_sunk():
+                    return f"{ship.name} sunk!"

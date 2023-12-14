@@ -40,3 +40,5 @@ def main():
             break
         else:
             print("Invalid choice. Please try again.")
+
+main()
