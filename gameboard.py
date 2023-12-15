@@ -25,7 +25,18 @@ class GameBoard:
         :param reveal_ships: If True, ships will be revealed on board.
         """
         for row in self.board:
-            print(" ".join(row))
+            colored_row = ""
+            for cell in row:
+                if cell == 'H':
+                    colored_row += "\033[91mX\033[0m "  # Red for hits
+                elif cell == 'M':
+                    colored_row += "\033[94mO\033[0m "  # Blue for misses
+                elif reveal_ships and cell == 'S':
+                    colored_row += "\033[92mS\033[0m "  # Green for ships
+                else:
+                    colored_row += "~ "
+            print(colored_row)
+        print("\033[0m")  # Reset to default color at the end
         print() # Extra newline for better readability
 
 
