@@ -111,7 +111,9 @@ def change_difficulty():
 
 def view_leaderboard():
     """
-    displays the leaderboard
+    displays the current leaderboard
+
+    :param leaderboard: Leaderboard class instance to display.
     """
     global global_leaderboard
     global_leaderboard.display_leaderboard()
@@ -183,7 +185,7 @@ def main():
             current_difficulty = change_difficulty()
         elif choice == 3:
             print("Displaying leaderboard...")
-            view_leaderboard(global_leaderboard)
+            view_leaderboard()
         elif choice == 4:
             print("Exiting game. Goodbye!")
             break
