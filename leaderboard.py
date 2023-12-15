@@ -34,7 +34,7 @@ class Leaderboard:
         """
         prints out the current standings.
         """
-        print("\n ****** Leaderboard ******:")
+        print("\n ****** Leaderboard ******")
         for player, scores in self.scores.items():
             wins, losses = scores['wins'], scores['losses']
             print(f"{player} - Wins: {wins}, Losses: {losses}")
@@ -75,7 +75,7 @@ class Leaderboard:
         displays leaderboard sorted by the number of wins.
         """
         sorted_scores = sorted(self.scores.items(), key=lambda x: x[1]['wins'], reverse=True)
-        print("\n ****** Leaderboard (Sorted by Wins) ******:")
+        print("\n ****** Leaderboard (Sorted by Wins) ******")
         for player, scores in sorted_scores:
             wins, losses = scores['wins'], scores['losses']
             print(f"{player} - Wins: {wins}, Losses: {losses}")

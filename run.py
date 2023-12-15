@@ -108,7 +108,7 @@ def change_difficulty():
     while True: 
         print("\nSelect Difficulty:")
         print("1. Easy! (8x8 Board for both player & computer.)")
-        print("2. Hard! (5x5 Board for player, 8x8 for computer!)")
+        print("2. Hard! (5x5 Board for player, & computer!)")
 
         choice = input("Enter your choice (1-2): ")
         if choice == "1":
