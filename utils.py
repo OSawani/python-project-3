@@ -1,6 +1,9 @@
 # Functions used across the project. 
 # This include input validation, error handling, and any other reusable code.
 
+import sys 
+import time 
+
 def validate_input(user_input, expected_type, range=None):
     """
     validates/checks if given user input matches
@@ -22,6 +25,20 @@ def validate_input(user_input, expected_type, range=None):
         return True, converted_input
     except ValueError:
         return False, "Invalid input type."
+
+
+def typing_effect(text, speed=0.05):
+    """
+    simulates typing effect for given text.
+
+    :param text: The text to be printed with typing effect.
+    :param speed: Delay between each character (lower is faster).
+    """
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(speed)
+    print()  # Move to the next line after finishing
 
 
 def is_within_board(coordinates, board_size):

@@ -4,7 +4,7 @@
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
 import random
-from utils import convert_to_coords, validate_input, is_within_board
+from utils import validate_input, typing_effect, convert_to_coords, is_within_board
 from gameboard import GameBoard
 from ship import Ship
 from leaderboard import Leaderboard
@@ -59,7 +59,8 @@ def start_new_game(difficulty, leaderboard):
             # Generate ranom position & orientation
     # Automatically place ships on board
 
-    print("Game started! Here's your board:")
+    typing_effect("Game started! Here's your board:")
+    game_board.print_board(reveal_ships = True)
     
     # Continues until the game is over, 
     # Alternating between player turns 
