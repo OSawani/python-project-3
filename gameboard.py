@@ -25,7 +25,7 @@ class GameBoard:
         :param reveal_ships: If True, ships will be revealed on board.
         """
         for row in self.board:
-            print("_**_".join(row))
+            print(" ".join(row))
         print() # Extra newline for better readability
 
 
@@ -44,9 +44,11 @@ class GameBoard:
         if self.is_valid_placement(ship, position, horizontal):
             ship.place(position, horizontal)
             self.ships.append(ship)
-            # Update board with ship's position
+            # Update board with ship's position for internal tracking
+            # Not visible to player
             for x, y in ship.positions:
-                self.board[x][y] = 'S' if reveal_ships else '~'
+                self.board[x][y] = 'S'
+                # Ships marked on the board but not visible to the player
             return True
         else:
             return False
@@ -86,7 +88,7 @@ class GameBoard:
         if self.board[x][y] in ["H", "M"]:
             return "Already hit"
         
-        hit = any(ship for ship in self.ship if coordinates in ship.positions)
+        hit = any(ship for ship in self.ships if coordinates in ship.positions)
         if hit:
             self.board[x][y] = "H"
             self.update_ship_hit(coordinates)

@@ -66,5 +66,16 @@ class Leaderboard:
                     self.scores[player] = {'wins': wins, 'losses': losses}
         except FileNotFoundError:
             print(f"No saved leaderboard found at '{filename}'. Starting fresh.")
+        except Exception as e:
+            print(f"Error loading leaderboard from '{filename}': {e}")
 
 
+    def display_sorted_leaderboard(self):
+        """
+        displays leaderboard sorted by the number of wins.
+        """
+        sorted_scores = sorted(self.scores.items(), key=lambda x: x[1]['wins'], reverse=True)
+        print("\n ****** Leaderboard (Sorted by Wins) ******:")
+        for player, scores in sorted_scores:
+            wins, losses = scores['wins'], scores['losses']
+            print(f"{player} - Wins: {wins}, Losses: {losses}")
