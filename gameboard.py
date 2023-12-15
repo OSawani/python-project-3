@@ -18,37 +18,77 @@ class GameBoard:
         # the loop variable index is not needed.
 
         #additional initialization
-    
-    def print_board(self, reveal_ships = False):
-        """
-        prints the game board to the console,
-        displays the current state of the board in the console.
 
-        :param reveal_ships: If True, ships will be revealed on board.
+    def print_board(self, reveal_ships=False):
         """
-        print() # Extra newline for better readability
-        print("\033[0m")  # Reset to default color at the end
-        print("\n+" + "-" * (self.size * 2 + 1) + "+")
-        # Top border
-        for row in self.board:
-            colored_row = ""
-            for cell in row:
-                if cell == 'H':
-                    colored_row += "\033[91mX\033[0m "
-                    # Red for hits
-                elif cell == 'M':
-                    colored_row += "\033[94mO\033[0m "
-                    # Blue for misses
-                elif reveal_ships and cell == 'S':
-                    colored_row += "\033[92mS\033[0m "
-                    # Green for ships
-                else:
-                    colored_row += "~ "
-            print("| " + colored_row + "|")
-            # Add left and right borders
-        print("+" + "-" * (self.size * 2 + 1) + "+\n")
-        # Bottom border
-        print() # Extra newline for better readability
+        prints game board to the console, 
+        centered, displaying the current state of the board.
+        """
+       
+        cell_width = 3
+        board_content_width = self.size * cell_width + (self.size - 1)
+        # Define cell and board dimensions
+        padding = (80 - (board_content_width + 4)) // 2
+        # Padding for the sides
+
+        header = ' '.join([chr(i + 65) for i in range(self.size)])
+        header_padding = ' ' * ((cell_width + 1) // 2)
+        print(' ' * padding + '   ' + header_padding + header + header_padding)
+        # Print the column headers (A, B, C, ...)
+
+        print(' ' * padding + '  +' + '-' * board_content_width + '+')
+        # Print the top border of the board
+
+
+        for num, row in enumerate(self.board, start=1):
+            row_str = ' | '.join(
+                "\033[91mX\033[0m" if cell == 'H' else
+                "\033[94mO\033[0m" if cell == 'M' else
+                "\033[92mS\033[0m" if reveal_ships and cell == 'S' else "~"
+                for cell in row
+            )
+            print(f"{num:>2} |" + ' ' * padding + row_str + ' ' * padding + f"| {num}")
+            # Print each row of the board with the row numbers (1, 2, 3, ...)
+
+
+        print(' ' * padding + '  +' + '-' * board_content_width + '+')
+        # Print the bottom border of the board
+
+        print(' ' * padding + '   ' + header_padding + header + header_padding)
+        # Print the column headers again
+
+
+
+    # def print_board(self, reveal_ships = False):
+    #     """
+    #     prints the game board to the console,
+    #     displays the current state of the board in the console.
+
+    #     :param reveal_ships: If True, ships will be revealed on board.
+    #     """
+    #     print() # Extra newline for better readability
+
+    #     print("\n+" + "-" * (self.size * 2 + 1) + "+")
+    #     # Top border
+    #     column_headers = '  ' + ' '.join([chr(i + 65) for i in range(self.size)])
+    #     print(column_headers)
+    #     # Column headers
+
+    #     # Board contents with row numbers
+    #     for idx, row in enumerate(self.board):
+    #         colored_row = ""
+    #         for cell in row:
+    #             colored_row += "\033[91mX\033[0m " if cell == 'H' else \
+    #                            "\033[94mO\033[0m " if cell == 'M' else \
+    #                            "\033[92mS\033[0m " if reveal_ships and cell == 'S' else "~ "
+    #         print(f"{idx + 1} | {colored_row}|")
+
+    #     print(column_headers)
+    #     # Column headers
+
+    #     print("+" + "-" * (self.size * 2 + 1) + "+\n")
+    #     # Bottom border
+    #     print() # Extra newline for better readability
 
 
     def place_ship(self, ship, position, horizontal):
