@@ -94,6 +94,21 @@ def convert_to_coords(input_str):
     return x, y
 
 
+def computer_turn(game_board):
+    """
+    Handles the computer's turn to guess and attack a coordinate.
+    enables the computer to randomly choose a target,
+    ensures the computer does not attack a previously hit coordinate.
+    """
+    while True:
+        x = random.randint(0, game_board.size - 1)
+        y = random.randint(0, game_board.size - 1)
+        result = game_board.take_shot((x, y))
+        if result != "Already hit":
+            print(f"Computer attacked {chr(65 + x)}{y + 1} and {result}")
+            break
+
+
 def start_new_game(difficulty):
     """
     initializes a new game with current difficulty.
@@ -124,11 +139,21 @@ def start_new_game(difficulty):
     # and a placeholder for the computer's turn.
     while not game_board.is_game_over():
     player_turn(game_board)
-    # Placeholder for computer's turn
+    # checks after each turn if the game is over.  
+    # if all ships of player/computer are sunk, 
+    # game ends!
+        if game_board.is_game_over():
+            print("Congratulations! You won!")
+            break
+
+        computer_turn(game_board)
+        if game_board.is_game_over():
+            print("Sorry, the computer won this time.")
+            break
+
     game_board.print_board(reveal_ships=False)
 
     print("Game over!")
-
 
 def main():
     """
