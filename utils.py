@@ -3,14 +3,15 @@
 
 def validate_input(user_input, expected_type, range=None):
     """
-    Validates the user input.
+    validates/checks if given user input matches
+    the expected type and falls within an optional range.
 
-    :param user_input: The input to validate
-    :param expected_type: The type that the input is expected to be
-    :param range: An optional range (inclusive) for numeric inputs
-    :return: (bool, any) A tuple where the first element is a boolean indicating
-             if the input is valid, and the second element is the converted input
-             or an error message.
+    :param user_input: input to validate
+    :param expected_type: type that the input is expected to be
+    :param range: optional range (inclusive) for numeric inputs
+    :return: (bool, any) tuple
+            first element is a boolean indicates if input valid,
+            second element is converted input or an error message.
     """
     try:
         # Convert input to expected type
@@ -21,3 +22,21 @@ def validate_input(user_input, expected_type, range=None):
         return True, converted_input
     except ValueError:
         return False, "Invalid input type."
+
+
+def convert_to_coords(input_str):
+    """
+    converts input string like 'A5' into board coordinates.
+
+    :param input_str: input string to convert.
+    :return: (int, int) tuple representing the coordinates (x, y).
+    :raises: ValueError if input format is invalid.
+    """
+    if len(input_str) != 2 or not input_str[0].isalpha() or not input_str[1].isdigit():
+        raise ValueError("Invalid input format.")
+
+    x = ord(input_str[0].upper()) - ord('A')
+    # Convert letter to number (A -> 0, B -> 1, ...)
+    y = int(input_str[1]) - 1
+    # Convert 1-based index to 0-based
+    return x, y

@@ -91,4 +91,4 @@ class GameBoard:
 
 
     def is_game_over(self):
-    return all(ship.is_sunk() for ship in self.ships)
+        return all(ship.is_sunk() for ship in self.ships)

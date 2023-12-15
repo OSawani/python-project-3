@@ -4,6 +4,7 @@
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
 import random
+from utils import convert_to_coords, validate_input
 from gameboard import GameBoard
 from ship import Ship
 from leaderboard import Leaderboard
@@ -13,8 +14,8 @@ global_leaderboard = Leaderboard()
 
 def display_main_menu():
     """
-    Displays the main menu options and handles user input.
-    Returns a valid choice as an integer.
+    displays the main menu options and handles user input.
+    returns a valid choice as an integer.
     """
     print("\n" + "=" * 28)
     print("||    BATTLESHIP GAME    ||")
@@ -26,7 +27,61 @@ def display_main_menu():
     print("=" * 28 + "\n")
 
     choice = input("Enter your choice (1-4): \n")
+    if choice in ["1", "2", "3", "4"]:
+        return int(choice)
+    print("Invalid")
     return choice
+
+
+def start_new_game(difficulty, leaderboard):
+    """
+    initializes a new game with current difficulty.
+    creates a GameBoard instance based on difficulty,
+    handles random ship placement & game progression.
+    """
+    print(f"Starting a new game with difficulty: {difficulty}")
+    board_size = 8 if difficulty == 'Easy' else 5
+    game_board = GameBoard(size = board_size)
+    
+    ships = [Ship("Battleship", 4), Ship("Cruiser, 3"),
+            Ship("Submarine", 3), ("Destroyer", 2),
+            Ship("Patrol Boat", 1)]
+    # Define ships
+
+    for ship in ships:
+        placed = False
+        while not placed:
+            x = radnom.randint(0, board_size -1)
+            y = random.randint(0, board_size -1)
+            horizontal = random.choice([True, False])
+            placed = game_board.place_ship(ship, (x, y), horizontal)
+            # Generate ranom position & orientation
+    # Automatically place ships on board
+
+    print("Game started! Here's your board:")
+    
+    # Continues until the game is over, 
+    # Alternating between player turns 
+    # and a placeholder for the computer's turn.
+    while not game_board.is_game_over():
+        player_turn(game_board)
+    # Checks after each turn if the game is over.  
+    # If all ships of player/computer are sunk, 
+    # Game ends!
+        if game_board.is_game_over():
+            print("Congratulations! You won!")
+            update_leaderboard(leaderboard, True)
+            break
+
+        computer_turn(game_board)
+        if game_board.is_game_over():
+            print("Sorry, the computer won this time.")
+            update_leaderboard(leaderboard, False)
+            break
+
+        game_board.print_board(reveal_ships=False)
+
+    print("Game over!")
 
 
 def change_difficulty():
@@ -75,23 +130,7 @@ def player_turn(game_board):
                 break
         except ValueError as e:
             print(e)
-
-
-
-def convert_to_coords(input_str):
-    """
-    converts input string like 'A5' into board coordinates.
-    validates input format,
-    throws ValueError if input is invalid.
-    """
-    if len(input_str) != 2 or not input_str[0].isalpha() or not input_str[1].isdigit():
-        raise ValueError("Invalid input format.")
-    
-    x = ord(input_str[0].upper()) - ord('A')
-    # Convert letter to number (A -> 0, B -> 1, ...)
-    y = int(input_str[1]) - 1
-    # Convert 1-based index to 0-based
-    return x, y
+        # Improved input handling
 
 
 def computer_turn(game_board):
@@ -109,59 +148,23 @@ def computer_turn(game_board):
             break
 
 
-def start_new_game(difficulty):
+def update_leaderboard(leaderboard, player_won):
     """
-    initializes a new game with current difficulty.
-    creates a GameBoard instance based on difficulty,
-    handles random ship placement & game progression.
+    updates the leaderboard based on game outcome
     """
-    print(f"Starting a new game with difficulty: {difficulty}")
-    board_size = 8 if difficulty == 'Easy' else 5
-    game_board = GameBoard(size = board_size)
-    
-    ships = [Ship("Battleship", 4), Ship("Cruiser, 3"),
-            Ship("Submarine", 3), ("Destroyer", 2), Ship("Patrol Boat", 1)]
-    # Define ships
+    player_name = "Player"
+    # Placeholder for player's name
+    leaderboard.update_score(player_name, player_won)
 
-    for ship in ships:
-        placed = False
-        while not placed:
-            x = radnom.randint(0, board_size -1)
-            y = random.randint(0, board_size -1)
-            horizontal = random.choice([True, False])
-            placed = game_board.place_ship(ship, (x, y), horizontal)
-            # Generate ranom position & orientation
-    # Automatically place ships on board
-
-    print("Game started! Here's your board:")
-    
-    # continues until the game is over, alternating between player turns 
-    # and a placeholder for the computer's turn.
-    while not game_board.is_game_over():
-    player_turn(game_board)
-    # checks after each turn if the game is over.  
-    # if all ships of player/computer are sunk, 
-    # game ends!
-        if game_board.is_game_over():
-            print("Congratulations! You won!")
-            break
-
-        computer_turn(game_board)
-        if game_board.is_game_over():
-            print("Sorry, the computer won this time.")
-            break
-
-    game_board.print_board(reveal_ships=False)
-
-    print("Game over!")
 
 def main():
     """
-    The main game loop.
+    main game loop.
     """
     current_difficulty = "Easy" 
-    global_leaderboard = Leaderboard()
     # Default difficulty
+    global_leaderboard = Leaderboard()
+    
 
     while True:
         choice = display_main_menu()
