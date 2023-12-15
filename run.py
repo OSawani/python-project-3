@@ -127,14 +127,15 @@ def player_turn(game_board):
     """
     while True:
         try:
-            input_coords = input("Enter coordinates to attack (e.g., 'A5'): ")
+            typing_effect("Enter coordinates to attack (e.g., 'A5'): ")
+            input_coords = input()
             x, y = convert_to_coords(input_coords)
              # Convert input to board coordinates
             if not is_within_board((x, y), game_board.size):
                 print("Coordinates out of range. Please try again.")
                 continue
             result = game_board.take_shot((x, y))
-            print(result)
+            typing_effect(result)
             if result not in ["Already hit", "Coordinates out of range"]:
                 break
         except ValueError as e:
@@ -153,7 +154,7 @@ def computer_turn(game_board):
         y = random.randint(0, game_board.size - 1)
         result = game_board.take_shot((x, y))
         if result != "Already hit":
-            print(f"Computer attacked {chr(65 + x)}{y + 1} and {result}")
+            typing_effect(f"Computer attacked {chr(65 + x)}{y + 1} and {result}")
             break
 
 

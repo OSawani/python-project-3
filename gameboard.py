@@ -10,7 +10,7 @@ class GameBoard:
         :param size: The size of the board (size x size).
         """
         self.size = size
-        self.board = [["~" for _ in range(size)] for _ in range(size)]
+        self.board = [["-" for _ in range(size)] for _ in range(size)]
         self.ships = []
         # loop runs size times.
         # _ a variable name
@@ -21,74 +21,48 @@ class GameBoard:
 
     def print_board(self, reveal_ships=False):
         """
-        prints game board to the console, 
-        centered, displaying the current state of the board.
+        prints the game board to the console,
+        displays the current state of the board in the console.
+        
+        :param reveal_ships: If True, ships will be revealed on board.
         """
-       
-        cell_width = 3
-        board_content_width = self.size * cell_width + (self.size - 1)
-        # Define cell and board dimensions
-        padding = (80 - (board_content_width + 4)) // 2
-        # Padding for the sides
+        color_reset = "\033[0m"
+        color_row = "\033[95m"  # Magenta for row letters
+        color_column = "\033[96m"  # Cyan for column numbers
+        color_line = "\033[93m"    # Yellow for the horizontal line
+        # Define the colors
 
-        header = ' '.join([chr(i + 65) for i in range(self.size)])
-        header_padding = ' ' * ((cell_width + 1) // 2)
-        print(' ' * padding + '   ' + header_padding + header + header_padding)
-        # Print the column headers (A, B, C, ...)
+        board_content = []
+        # Prepare the board content with padding
 
-        print(' ' * padding + '  +' + '-' * board_content_width + '+')
-        # Print the top border of the board
-
-
-        for num, row in enumerate(self.board, start=1):
+        for i, row in enumerate(self.board, start=1):
             row_str = ' | '.join(
                 "\033[91mX\033[0m" if cell == 'H' else
                 "\033[94mO\033[0m" if cell == 'M' else
                 "\033[92mS\033[0m" if reveal_ships and cell == 'S' else "~"
                 for cell in row
             )
-            print(f"{num:>2} |" + ' ' * padding + row_str + ' ' * padding + f"| {num}")
-            # Print each row of the board with the row numbers (1, 2, 3, ...)
+            row_letter = f"{color_row}{chr(65 + i - 1)}{color_reset}"
+            # Convert number to letter
+            board_content.append(f"{row_letter} | {row_str} | {row_letter}")
 
+        line_length = 4 * self.size + 3  # Length of line based on the board size
+        horizontal_padding = (80 - line_length) // 2  # Padding each side centers line
+        # Calculate padding for the horizontal line
 
-        print(' ' * padding + '  +' + '-' * board_content_width + '+')
-        # Print the bottom border of the board
+        column_numbers = '   '.join([f"{color_column}{str(i + 1)}{color_reset}" for i in range(self.size)])
+        print(' ' * (horizontal_padding + 1) + '   ' + column_numbers)
+        # Print the top column numbers (1, 2, 3, ...)
 
-        print(' ' * padding + '   ' + header_padding + header + header_padding)
-        # Print the column headers again
+        print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
+        # Print the board content with horizontal lines
+        for line in board_content:
+            print(' ' * horizontal_padding + line)
+            print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
 
-
-
-    # def print_board(self, reveal_ships = False):
-    #     """
-    #     prints the game board to the console,
-    #     displays the current state of the board in the console.
-
-    #     :param reveal_ships: If True, ships will be revealed on board.
-    #     """
-    #     print() # Extra newline for better readability
-
-    #     print("\n+" + "-" * (self.size * 2 + 1) + "+")
-    #     # Top border
-    #     column_headers = '  ' + ' '.join([chr(i + 65) for i in range(self.size)])
-    #     print(column_headers)
-    #     # Column headers
-
-    #     # Board contents with row numbers
-    #     for idx, row in enumerate(self.board):
-    #         colored_row = ""
-    #         for cell in row:
-    #             colored_row += "\033[91mX\033[0m " if cell == 'H' else \
-    #                            "\033[94mO\033[0m " if cell == 'M' else \
-    #                            "\033[92mS\033[0m " if reveal_ships and cell == 'S' else "~ "
-    #         print(f"{idx + 1} | {colored_row}|")
-
-    #     print(column_headers)
-    #     # Column headers
-
-    #     print("+" + "-" * (self.size * 2 + 1) + "+\n")
-    #     # Bottom border
-    #     print() # Extra newline for better readability
+        print(' ' * (horizontal_padding + 1) + '   ' + column_numbers)
+        # Print the bottom column numbers again
+        print()  # Extra newline for better readability
 
 
     def place_ship(self, ship, position, horizontal):
@@ -131,7 +105,7 @@ class GameBoard:
         for i in range(ship.size):
             x = position[0] + i if horizontal else position[0]
             y = position[1] if horizontal else position[1] + i
-            if x >= self.size or y >= self.size or self.board[x][y] != "~":
+            if x >= self.size or y >= self.size or self.board[x][y] != "-":
                 return False
         return True
 
@@ -160,7 +134,7 @@ class GameBoard:
             return "Hit!"
         else:
             self.board[x][y] = "M"
-            return "Miss"
+            return "Missed!"
     
 
     def update_ship_hit(self, coordinates):
