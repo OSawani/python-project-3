@@ -1,3 +1,5 @@
+from utils import is_within_board
+
 class GameBoard:
     def __init__(self, size=8):
         """
@@ -104,6 +106,9 @@ class GameBoard:
         :param coordinates: The coordinates (tuple) to take a shot at.
         :return: Result of the shot - "Hit", "Miss", or "Already hit".
         """
+        if not is_within_board(coordinates, self.size):
+            return "Coordinates out of range"
+
         x, y = coordinates
         if self.board[x][y] in ["H", "M"]:
             return "Already hit"

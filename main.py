@@ -4,7 +4,7 @@
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
 import random
-from utils import convert_to_coords, validate_input
+from utils import convert_to_coords, validate_input, is_within_board
 from gameboard import GameBoard
 from ship import Ship
 from leaderboard import Leaderboard
@@ -127,9 +127,12 @@ def player_turn(game_board):
             input_coords = input("Enter coordinates to attack (e.g., 'A5'): ")
             x, y = convert_to_coords(input_coords)
              # Convert input to board coordinates
+            if not is_within_board((x, y), game_board.size):
+                print("Coordinates out of range. Please try again.")
+                continue
             result = game_board.take_shot((x, y))
             print(result)
-            if result != "Already hit":
+            if result not in ["Already hit", "Coordinates out of range"]:
                 break
         except ValueError as e:
             print(e)

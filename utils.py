@@ -24,6 +24,18 @@ def validate_input(user_input, expected_type, range=None):
         return False, "Invalid input type."
 
 
+def is_within_board(coordinates, board_size):
+    """
+    checks if given coordinates are within the bounds of the board.
+
+    :param coordinates: A tuple (x, y) representing coordinates.
+    :param board_size: The size of game board.
+    :return: True if  coordinates are within board, False otherwise.
+    """
+    x, y = coordinates
+    return 0 <= x < board_size and 0 <= y < board_size
+
+
 def convert_to_coords(input_str):
     """
     converts input string like 'A5' into board coordinates.
