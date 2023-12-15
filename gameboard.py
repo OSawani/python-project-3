@@ -4,6 +4,8 @@ class GameBoard:
         sets up board with a default size of 8x8.
         board is represented as a list of lists, 
         with ~ indicating water.
+
+        :param size: The size of the board (size x size).
         """
         self.size = size
         self.board = [["~" for _ in range(size)] for _ in range(size)]
@@ -19,6 +21,8 @@ class GameBoard:
         """
         prints the game board to the console,
         displays the current state of the board in the console.
+
+        :param reveal_ships: If True, ships will be revealed on board.
         """
         for row in self.board:
             print("_**_".join(row))
@@ -31,6 +35,11 @@ class GameBoard:
         checks if placement is valid,
         updates ship's positions
         marks ship on the board.
+
+        :param ship: The ship object to be placed.
+        :param position: The starting position (tuple) for ship.
+        :param horizontal: Orientation of ship. True for horizontal.
+        :return: True if ship was placed successfully, False otherwise.
         """
         if self.is_valid_placement(ship, position, horizontal):
             ship.place(position, horizontal)
@@ -48,7 +57,13 @@ class GameBoard:
         """
         checks if ship placement is within board boundaries
         without overlapping.
+
+        :param ship: The ship to be placed.
+        :param position: The starting position (tuple) for ship.
+        :param horizontal: Orientation of ship.
+        :return: True if the placement is valid, False otherwise.
         """
+        x, y = position
         for i in range(ship.size):
             x = position[0] + i if horizontal else position[0]
             y = position[1] if horizontal else position[1] + i
@@ -63,6 +78,9 @@ class GameBoard:
         updates the board based on the shot's coordinates.
         checks if shot is a hit/miss and marks board with 'H'(hit)/'M'(miss).
         prevents shooting at the same location more than once.
+
+        :param coordinates: The coordinates (tuple) to take a shot at.
+        :return: Result of the shot - "Hit", "Miss", or "Already hit".
         """
         x, y = coordinates
         if self.board[x][y] in ["H", "M"]:

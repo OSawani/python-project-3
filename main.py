@@ -81,7 +81,8 @@ def start_new_game(difficulty, leaderboard):
 
         game_board.print_board(reveal_ships=False)
 
-    print("Game over!")
+    print("Game over! Here's the final board:")
+    game_board.print_board(reveal_ships = True)
 
 
 def change_difficulty():

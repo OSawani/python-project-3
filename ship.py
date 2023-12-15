@@ -4,6 +4,8 @@
 
 class Ship:
     """
+    initialises a new ship
+
     represents the different types of ships in the game, 
     attributes: size, position, and status (hit or not).
     """
@@ -22,6 +24,8 @@ class Ship:
 
     def place(self, start_position, horizontal = True):
         """
+        places ship on game board
+
         takes a start position & orientation (horizontal/vertical).
         calculates ship's positions on board.
         """
@@ -32,7 +36,9 @@ class Ship:
 
     def is_sunk(self):
         """
-        returns True if ship has been hit enough times to sink.
+        checks if ship is sunk
+
+        :return: True if ship has been hit enough times to sink.
         """
         return self.hits >= self.size
 
