@@ -33,6 +33,19 @@ def display_main_menu():
         print("Invalid choice. Please enter a number between 1 and 4")
 
 
+def place_ships_randomly(game_board, ships, board_size):
+    """
+    randomly place ships on both boards
+    """
+    for ship in ships:
+        placed = False
+        while not placed:
+            x = random.randint(0, board_size - 1)
+            y = random.randint(0, board_size - 1)
+            horizontal = random.choice([True, False])
+            placed = game_board.place_ship(ship, (x, y), horizontal)
+            # Generate ranom position & orientation
+
 
 def start_new_game(difficulty, leaderboard):
     """
@@ -42,49 +55,47 @@ def start_new_game(difficulty, leaderboard):
     """
     print(f"Starting a new game with difficulty: {difficulty}")
     board_size = 8 if difficulty == 'Easy' else 5
-    game_board = GameBoard(size = board_size)
+    player_board = GameBoard(size = board_size)
+    computer_board = GameBoard(size = board_size)
     
     ships = [Ship("Battleship", 4), Ship("Cruiser", 3), 
             Ship("Submarine", 3), Ship("Destroyer", 2), 
             Ship("Patrol Boat", 1)]
     # Define ships
 
-    for ship in ships:
-        placed = False
-        while not placed:
-            x = random.randint(0, board_size -1)
-            y = random.randint(0, board_size -1)
-            horizontal = random.choice([True, False])
-            placed = game_board.place_ship(ship, (x, y), horizontal)
-            # Generate ranom position & orientation
-    # Automatically place ships on board
+    place_ships_randomly(player_board, ships, board_size)
+    place_ships_randomly(computer_board, ships, board_size)
+    # Place ships for both player and computer
 
     typing_effect("Game started! Here's your board:")
-    game_board.print_board(reveal_ships = True)
+    player_board.print_board(reveal_ships=True)
     
     # Continues until the game is over, 
     # Alternating between player turns 
     # and a placeholder for the computer's turn.
-    while not game_board.is_game_over():
-        player_turn(game_board)
-    # Checks after each turn if the game is over.  
-    # If all ships of player/computer are sunk, 
-    # Game ends!
-        if game_board.is_game_over():
+    while not (player_board.is_game_over() or computer_board.is_game_over()):
+        player_turn(computer_board)
+        # Checks after each turn if the game is over.  
+        # If all ships of player/computer are sunk, 
+        # Game ends!
+        if computer_board.is_game_over():
             print("Congratulations! You won!")
             update_leaderboard(leaderboard, True)
             break
 
-        computer_turn(game_board)
-        if game_board.is_game_over():
+        computer_turn(player_board)
+        if player_board.is_game_over():
             print("Sorry, the computer won this time.")
             update_leaderboard(leaderboard, False)
             break
 
-        game_board.print_board(reveal_ships=False)
+        typing_effect("Current state of the enemy's board:")
+        computer_board.print_board(reveal_ships=False)
 
-    print("Game over! Here's the final board:")
-    game_board.print_board(reveal_ships = True)
+    typing_effect("Game over! Here's the final computer board:")
+    computer_board.print_board(reveal_ships = True)
+    typing_effect("Here's your final board:")
+    player_board.print_board(reveal_ships = True)
 
 
 def change_difficulty():

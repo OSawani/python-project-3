@@ -39,7 +39,7 @@ class GameBoard:
             row_str = ' | '.join(
                 "\033[91mX\033[0m" if cell == 'H' else
                 "\033[94mO\033[0m" if cell == 'M' else
-                "\033[92mS\033[0m" if reveal_ships and cell == 'S' else "~"
+                "\033[92mS\033[0m" if reveal_ships and cell == 'S' else "-"
                 for cell in row
             )
             row_letter = f"{color_row}{chr(65 + i - 1)}{color_reset}"
