@@ -88,3 +88,7 @@ class GameBoard:
                 ship.take_hit()
                 if ship.is_sunk():
                     return f"{ship.name} sunk!"
+
+
+    def is_game_over(self):
+    return all(ship.is_sunk() for ship in self.ships)

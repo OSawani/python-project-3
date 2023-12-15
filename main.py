@@ -58,6 +58,42 @@ def view_leaderboard():
     leaderboard.display_leaderboard()
 
 
+def player_turn(game_board):
+    """
+    handles player's turn to guess & attack a coordinate.
+    allows player to input coordinates for an attack,
+    handles the shot logic.
+    """
+    while True:
+        try:
+            input_coords = input("Enter coordinates to attack (e.g., 'A5'): ")
+            x, y = convert_to_coords(input_coords)
+             # Convert input to board coordinates
+            result = game_board.take_shot((x, y))
+            print(result)
+            if result != "Already hit":
+                break
+        except ValueError as e:
+            print(e)
+
+
+
+def convert_to_coords(input_str):
+    """
+    converts input string like 'A5' into board coordinates.
+    validates input format,
+    throws ValueError if input is invalid.
+    """
+    if len(input_str) != 2 or not input_str[0].isalpha() or not input_str[1].isdigit():
+        raise ValueError("Invalid input format.")
+    
+    x = ord(input_str[0].upper()) - ord('A')
+    # Convert letter to number (A -> 0, B -> 1, ...)
+    y = int(input_str[1]) - 1
+    # Convert 1-based index to 0-based
+    return x, y
+
+
 def start_new_game(difficulty):
     """
     initializes a new game with current difficulty.
@@ -83,6 +119,15 @@ def start_new_game(difficulty):
     # Automatically place ships on board
 
     print("Game started! Here's your board:")
+    
+    # continues until the game is over, alternating between player turns 
+    # and a placeholder for the computer's turn.
+    while not game_board.is_game_over():
+    player_turn(game_board)
+    # Placeholder for computer's turn
+    game_board.print_board(reveal_ships=False)
+
+    print("Game over!")
 
 
 def main():
