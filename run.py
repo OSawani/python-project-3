@@ -7,9 +7,13 @@ from gameboard import GameBoard
 from ship import Ship
 from leaderboard import Leaderboard
 import random
-from utils import display_game_instructions,
-validate_input, typing_effect, convert_to_coords, is_within_board
-
+from utils import (
+    display_game_instructions,
+    validate_input,
+    typing_effect,
+    convert_to_coords,
+    is_within_board
+)
 global_leaderboard = Leaderboard()
 # Global leaderboard instance
 
@@ -60,8 +64,9 @@ def start_new_game(difficulty, leaderboard):
     player_name = input()
 
     print(
-        f"{player_name}, We are now startinga new game with difficulty:
-            {difficulty}")
+        f"{player_name}, We are now starting a new game with difficulty:"
+        f" {difficulty}"
+    )
     board_size = 5 if difficulty == 'Easy' else 8
     player_board = GameBoard(size=board_size)
     computer_board = GameBoard(size=board_size)
@@ -195,7 +200,8 @@ def computer_turn(player_board):
         result = player_board.take_shot((x, y))
         if result != "Already hit":
             typing_effect(
-                f"Computer attacked {chr(65 + x)}{y + 1} and {result}")
+                f"Computer attacked {chr(65 + x)}{y + 1} and {result}"
+                )
             break
 
 
