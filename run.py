@@ -54,7 +54,7 @@ def start_new_game(difficulty, leaderboard):
     handles random ship placement & game progression.
     """
     print(f"Starting a new game with difficulty: {difficulty}")
-    board_size = 8 if difficulty == 'Easy' else 5
+    board_size = 5 if difficulty == 'Easy' else 8
     player_board = GameBoard(size = board_size)
     computer_board = GameBoard(size = board_size)
     
@@ -74,10 +74,13 @@ def start_new_game(difficulty, leaderboard):
     # Alternating between player turns 
     # and a placeholder for the computer's turn.
     while not (player_board.is_game_over() or computer_board.is_game_over()):
-        player_turn(computer_board)
-        # Checks after each turn if the game is over.  
-        # If all ships of player/computer are sunk, 
-        # Game ends!
+        turn_result = player_turn(computer_board)
+
+        if turn_result == "quit":
+            typing_effect("Returning to the main menu...")
+            return
+            # Exit the function, returning to the main menu
+
         if computer_board.is_game_over():
             print("Congratulations! You won!")
             update_leaderboard(leaderboard, True)
@@ -88,6 +91,9 @@ def start_new_game(difficulty, leaderboard):
             print("Sorry, the computer won this time.")
             update_leaderboard(leaderboard, False)
             break
+        # Checks after each turn if the game is over.  
+        # If all ships of player/computer are sunk, 
+        # Game ends!
 
         typing_effect("Current state of the enemy's board:")
         computer_board.print_board(reveal_ships=False)
@@ -107,8 +113,8 @@ def change_difficulty():
     """
     while True: 
         print("\nSelect Difficulty:")
-        print("1. Easy! (8x8 Board for both player & computer.)")
-        print("2. Hard! (5x5 Board for player, & computer!)")
+        print("1. Easy! (5X5 Board for both player & computer.)")
+        print("2. Hard! (8X8 Board for both player & computer!)")
 
         choice = input("Enter your choice (1-2): ")
         if choice == "1":
@@ -135,12 +141,17 @@ def player_turn(game_board):
     handles player's turn to guess & attack a coordinate.
     allows player to input coordinates for an attack,
     handles the shot logic.
+    allows user to quit to main menu by pressing n.
     """
     while True:
         try:
-            typing_effect("Enter coordinates to attack (e.g., 'A5'): ")
-            input_coords = input()
-            x, y = convert_to_coords(input_coords)
+            typing_effect('Enter coordinates to attack (e.g., "A5"): \nor enter "n" to quit')
+            input_str = input().strip().lower()
+
+            if input_str == "n":
+                return "quit"
+
+            x, y = convert_to_coords(input_str)
              # Convert input to board coordinates
             if not is_within_board((x, y), game_board.size):
                 print("Coordinates out of range. Please try again.")
