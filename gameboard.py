@@ -1,4 +1,4 @@
-from utils import is_within_board
+from utils import is_within_board, typing_effect
 
 class GameBoard:
     def __init__(self, size=8):
@@ -57,7 +57,7 @@ class GameBoard:
         print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
         # Print the board content with horizontal lines
         for line in board_content:
-            print(' ' * horizontal_padding + line)
+            typing_effect(' ' * horizontal_padding + line, speed = 0.008)
             print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
 
         print(' ' * (horizontal_padding + 1) + '   ' + column_numbers)
@@ -110,6 +110,27 @@ class GameBoard:
         return True
 
 
+    def update_ship_hit(self, coordinates):
+        """
+        updates ship's status when hit's confirmed.
+        calls take_hit on the ship and checks if the ship is sunk.
+        """
+        for ship in self.ships:
+            if coordinates in ship.positions:
+                if coordinates in ship.hit_positions:
+                    return "Part already hit"
+                    # Check if the part of the ship has already been hit
+                else:
+                    ship.take_hit(coordinates)
+                    if ship.is_sunk():
+                        return f"{ship.name} sunk!"
+                        # If the ship is hit but not sunk
+                    else:
+                        return f"{ship.name} hit!"
+        return ""
+        # Return an empty string if no ship was hit
+        
+
     def take_shot(self, coordinates):
         """
         handles shooting at a coordinate:
@@ -127,26 +148,14 @@ class GameBoard:
         if self.board[x][y] in ["H", "M"]:
             return "Already hit"
         
-        hit = any(ship for ship in self.ships if coordinates in ship.positions)
-        if hit:
+        hit_ship_info = self.update_ship_hit(coordinates)
+        if "hit" in hit_ship_info or "sunk" in hit_ship_info:
             self.board[x][y] = "H"
-            self.update_ship_hit(coordinates)
             return "Hit!"
         else:
             self.board[x][y] = "M"
-            return "Missed!"
+            return "Miss"
     
-
-    def update_ship_hit(self, coordinates):
-        """
-        updates ship's status when hit's confirmed.
-        calls take_hit on the ship and checks if the ship is sunk.
-        """
-        for ship in self.ships:
-            if coordinates in ship.positions:
-                ship.take_hit()
-                if ship.is_sunk():
-                    return f"{ship.name} sunk!"
 
 
     def is_game_over(self):

@@ -21,6 +21,8 @@ class Ship:
         # List of tuples(x, y) for each ship segment
         self.hits = 0 
         # Number of hits the ship has taken
+        self.hit_positions = []
+        # Initialise the hit positions list
 
     def place(self, start_position, horizontal = True):
         """
@@ -34,6 +36,17 @@ class Ship:
                           for i in range(self.size)]
 
 
+    def take_hit(self, hit_position):
+        """
+        increments hit counter when ship is hit.
+        """
+        if hit_position not in self.hit_positions:
+            self.hit_positions.append(hit_position)
+            # Track which parts of the ship have been hit
+            self.hits += 1
+
+
+
     def is_sunk(self):
         """
         checks if ship is sunk
@@ -42,8 +55,4 @@ class Ship:
         """
         return self.hits >= self.size
 
-    def take_hit(self):
-        """
-        increments hit counter when ship is hit.
-        """
-        self.hits += 1
+    

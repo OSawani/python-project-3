@@ -21,21 +21,24 @@ def display_game_instructions():
     # Create the border lines
 
     instructions = [
+        " ",
         "Welcome to Battleship!",
         "The game is played on two grids, one for each player.",
         "The grids are square, 5X5 for easy, 8X8 for Hard.",
         "Each square is identified by letter and number.",
         "On the enemy's grid, you track your own shots.",
+        " ",
         "Before play, the game randomly arranges ships for both players.",
         "Ships occupy consecutive squares, arranged horizontally/vertically.",
         "Ships cannot overlap. After positioning, the game proceeds in rounds.",
         "Players take turns announcing a target square to shoot at.",
         "If all your ships are sunk, the game ends and the opponent wins.",
+        " ",
         "Press 'y' to start the game or 'n' to return to main menu"
     ]
 
-    typing_effect(border_line)
-    typing_effect(center_text("B A T T L E S H I P S", ' '), end='|\n')
+    typing_effect(border_line, speed=0.007)
+    typing_effect(center_text("B A T T L E S H I P S", ' '), end='|\n', speed = 0.01)
     # Print the top border
 
 
@@ -43,7 +46,7 @@ def display_game_instructions():
         typing_effect(green_color_code + center_text(line) + reset_color_code, end='|\n', speed=0.01)
     # Print each line of the instructions
 
-    typing_effect(border_line)
+    typing_effect(border_line, speed = 0.007)
     # Print the bottom border
 
     while True:
