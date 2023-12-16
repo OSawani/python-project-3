@@ -4,6 +4,59 @@
 import sys 
 import time 
 
+def display_game_instructions():
+    """
+    displays game instructions with a border
+    waits for the user to continue.
+    """
+    green_color_code = "\033[92m"
+    reset_color_code = "\033[0m"
+    width = 70  # Set the width for the instructions and border
+
+    def center_text(text, symbol=' '):
+        return f"{text.center(width, symbol)}"
+    # Function to create centered text with the specified width
+
+    border_line = center_text("+", "-")
+    # Create the border lines
+
+    instructions = [
+        "Welcome to Battleship!",
+        "The game is played on two grids, one for each player.",
+        "The grids are square, 5X5 for easy, 8X8 for Hard.",
+        "Each square is identified by letter and number.",
+        "On the enemy's grid, you track your own shots.",
+        "Before play, the game randomly arranges ships for both players.",
+        "Ships occupy consecutive squares, arranged horizontally/vertically.",
+        "Ships cannot overlap. After positioning, the game proceeds in rounds.",
+        "Players take turns announcing a target square to shoot at.",
+        "If all your ships are sunk, the game ends and the opponent wins.",
+        "Press 'y' to start the game or 'n' to return to main menu"
+    ]
+
+    typing_effect(border_line)
+    typing_effect(center_text("B A T T L E S H I P S", ' '), end='|\n')
+    # Print the top border
+
+
+    for line in instructions:
+        typing_effect(green_color_code + center_text(line) + reset_color_code, end='|\n', speed=0.01)
+    # Print each line of the instructions
+
+    typing_effect(border_line)
+    # Print the bottom border
+
+    while True:
+        user_input = input().strip().lower()
+        if user_input == 'y':
+            return 'continue'
+        elif user_input == 'n':
+            return 'quit'
+        else:
+            typing_effect("Please press 'y' to start the game or 'n' to return to the main menu." + reset_color_code)
+    # Wait for user input to continue
+
+
 def validate_input(user_input, expected_type, range=None):
     """
     validates/checks if given user input matches
@@ -27,18 +80,19 @@ def validate_input(user_input, expected_type, range=None):
         return False, "Invalid input type."
 
 
-def typing_effect(text, speed=0.05):
+def typing_effect(text, end="\n", speed=0.05):
     """
     simulates typing effect for given text.
 
     :param text: The text to be printed with typing effect.
     :param speed: Delay between each character (lower is faster).
+    :param end: to control the end character after the text effect.
     """
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(speed)
-    print()  # Move to the next line after finishing
+    print(end=end, flush=True)  # Move to the next line after finishing
 
 
 def is_within_board(coordinates, board_size):

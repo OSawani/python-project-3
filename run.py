@@ -4,7 +4,7 @@
 # 1.starting a new game, 2.changing difficulty, 3.viewing the leaderboard.
 
 import random
-from utils import validate_input, typing_effect, convert_to_coords, is_within_board
+from utils import display_game_instructions, validate_input, typing_effect, convert_to_coords, is_within_board
 from gameboard import GameBoard
 from ship import Ship
 from leaderboard import Leaderboard
@@ -52,8 +52,12 @@ def start_new_game(difficulty, leaderboard):
     initializes a new game with current difficulty.
     creates a GameBoard instance based on difficulty,
     handles random ship placement & game progression.
+    asks player for username.
     """
-    print(f"Starting a new game with difficulty: {difficulty}")
+    typing_effect("Please enter a player name: ")
+    player_name = input()
+
+    print(f"{player_name}, We are now starting a new game with difficulty: {difficulty}")
     board_size = 5 if difficulty == 'Easy' else 8
     player_board = GameBoard(size = board_size)
     computer_board = GameBoard(size = board_size)
@@ -67,7 +71,7 @@ def start_new_game(difficulty, leaderboard):
     place_ships_randomly(computer_board, ships, board_size)
     # Place ships for both player and computer
 
-    typing_effect("Game started! Here's your board:")
+    typing_effect("\nGame started! Here's your board:")
     player_board.print_board(reveal_ships=True)
     
     # Continues until the game is over, 
@@ -82,14 +86,14 @@ def start_new_game(difficulty, leaderboard):
             # Exit the function, returning to the main menu
 
         if computer_board.is_game_over():
-            print("Congratulations! You won!")
-            update_leaderboard(leaderboard, True)
+            print(f"Congratulations, {player_name}! You won!")
+            update_leaderboard(leaderboard, player_name, True)
             break
 
         computer_turn(player_board)
         if player_board.is_game_over():
-            print("Sorry, the computer won this time.")
-            update_leaderboard(leaderboard, False)
+            print(f"Sorry, {player_name}. the computer won this time.")
+            update_leaderboard(leaderboard, player_name, False)
             break
         # Checks after each turn if the game is over.  
         # If all ships of player/computer are sunk, 
@@ -180,11 +184,10 @@ def computer_turn(game_board):
             break
 
 
-def update_leaderboard(leaderboard, player_won):
+def update_leaderboard(leaderboard, player_name, player_won):
     """
     updates the leaderboard based on game outcome
     """
-    player_name = "Player"
     # Placeholder for player's name
     leaderboard.update_score(player_name, player_won)
 
@@ -201,19 +204,23 @@ def main():
         choice = display_main_menu()
         
         if choice == 1:
-            print("Starting a new game...")
+            instruction_result = display_game_instructions()
+            if instruction_result == "quit":
+                print("Returning to the main menu...")
+                continue # Goes back to main menu
+            print("Starting a new game...\n")
             start_new_game(current_difficulty, global_leaderboard)
         elif choice == 2:
-            print("Changing difficulty...")
+            print("Changing difficulty...\n")
             current_difficulty = change_difficulty()
         elif choice == 3:
-            print("Displaying leaderboard...")
+            print("Displaying leaderboard...\n")
             view_leaderboard()
         elif choice == 4:
-            print("Exiting game. Goodbye!")
+            print("Exiting game. Goodbye!\n")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice. Please try again.\n")
 
 if __name__ == "__main__":
     main()
