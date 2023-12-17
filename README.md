@@ -2,9 +2,9 @@ Welcome to,
 
 # Battleship
 
-Live link - [Battleship](https://herokuapp.com/)
+Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.com/)
 
-![Screenshot](docs/readme_imgs/mock.png)
+![Screenshot](images/mock.png)
 
 ## Introduction
 
@@ -66,8 +66,8 @@ Live link - [Battleship](https://herokuapp.com/)
 
 - __Flowchart__
     - The game flow was planned with a detailed flowchart, ensuring a logical progression and a smooth user experience.
-    ![Flowchart](docs/readme_imgs/flowchart.png)
-    ![Flowchart](docs/readme_imgs/flowchart.png)
+    ![Flowchart](images/flowchart_1.png)
+    ![Flowchart](images/flowchart_2.png)
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -77,13 +77,13 @@ Live link - [Battleship](https://herokuapp.com/)
 
 - Users are greeted with the game name and instructions on how to start.
 
-![Welcome Screen](docs/readme_imgs/hg1.png)
+![Welcome Screen](images/welcome_screen.png)
 
 #### Game rules
 
 - Clear explanation of the game rules and mechanics.
 
-![Game rules](docs/readme_imgs/hg2.png)
+![Game rules](images/game_rules.png)
 
 #### Game play
 
@@ -92,19 +92,22 @@ Live link - [Battleship](https://herokuapp.com/)
 - The game's interface displays hit or miss feedback and updates on ship status.
 - The game's loop allows for viewing pc attacks and exiting midgame anytime the user wishes.
 
-![Gameplay](docs/readme_imgs/hg3.png)
+![Gameplay](images/player_name.png)
+![Gameplay](images/game_loop.png)
+![Gameplay](images/game_loop_2.png)
+
 
 #### Game Over
 
 - When the game concludes, the user is presented with options to try again or finish the game. The final state of both the user's and the computer's boards are displayed, along with the outcome of the match
 
-![Gameplay](docs/readme_imgs/hg3.png)
+![Gameplay](images/game_over.png)
 
 #### Leaderboard
 
 - The leaderboard feature showcases the high scores and game outcomes for player.
 
-![Leaderboard](docs/readme_imgs/Lead.png)
+![Leaderboard](images/leaderboard.png)
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -120,7 +123,7 @@ Live link - [Battleship](https://herokuapp.com/)
 
 ## Testing
 
-#### Python Validation & Error Fixes
+#### Python Validation 
 
 - All Python modules were thoroughly tested and validated using CI Python linters to ensure code quality and adherence to Pythonic conventions PEP8.
 - Errors were all related to four main issues, trailing white spaces, line length, indentation levels and spaces around keyword/parameter "="
@@ -134,7 +137,23 @@ Live link - [Battleship](https://herokuapp.com/)
 - W191 indentation contains tabs
 - E306 expected 1 blank line before a nested definition, found 0
 
-![Validation1](docs/readme_imgs/linter.png)
+![Linters](images/linter_errors.png)
+![Validation](images/linter_run.png)
+![Validation](images/linter_gameboard.png)
+![Validation](images/linter_ship.png)
+![Validation](images/linter_utils.png)
+![Validation](images/linter_leaderboard.png)
+
+#### Validation Error-based Fixes
+- Navigation menu validation
+![validation](images/error_based_validation_welcome_screen.png)
+![validation](images/error_based_validation_game_rules.png)
+![validation](images/error_based_validation_change_difficulty.png)
+
+- Game loop validation
+![validation](images/error_based_validation_out_of_range.png)
+![validation](images/error_based_validation_game_coords.png)
+
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -185,7 +204,8 @@ Live link - [Battleship](https://herokuapp.com/)
 - Deploying on Heroku:
 - A Procfile and requirements.txt file were created to specify the commands that are executed by the app on startup.
 - The app was linked to the GitHub repository for automatic deployment upon updates to the main branch.
-- The live link to play the game is available here: Play Battleship on Heroku
+- The live link to play the game is available here: 
+Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.com/)
 
 ### Clone a repository code locally
 
