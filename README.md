@@ -120,9 +120,19 @@ Live link - [Battleship](https://herokuapp.com/)
 
 ## Testing
 
-#### Python Validation
+#### Python Validation & Error Fixes
 
 - All Python modules were thoroughly tested and validated using CI Python linters to ensure code quality and adherence to Pythonic conventions PEP8.
+- Errors were all related to four main issues, trailing white spaces, line length, indentation levels and spaces around keyword/parameter "="
+
+- E501 line too long (117 > 79 characters)
+- W291 trailing whitespace
+- E302 expected 2 blank lines, found 1
+- E251 unexpected spaces around keyword / parameter equals
+- W293 blank line contains whitespace
+- E101 indentation contains mixed spaces and tabs
+- W191 indentation contains tabs
+- E306 expected 1 blank line before a nested definition, found 0
 
 ![Validation1](docs/readme_imgs/linter.png)
 
@@ -149,6 +159,7 @@ Live link - [Battleship](https://herokuapp.com/)
 | Game prematurely ending | Ensured that the game checks for all ships being sunk before declaring the game over |
 
 - Some bugs are still being worked on:
+
 | Bug | Status |
 | --- | ------ |
 | Game speed inconsistency | In progress - adjusting typing effect speeds |
