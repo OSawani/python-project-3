@@ -1,12 +1,12 @@
-#Ship class represent real world entity ship
-#Ship class has attributes: size, name.
-#Ship has methods/functions to track positions & determine status.
+# Ship class represent real world entity ship
+# Ship class has attributes: size, name.
+# Ship has methods/functions to track positions & determine status.
 
 class Ship:
     """
     initialises a new ship
 
-    represents the different types of ships in the game, 
+    represents the different types of ships in the game,
     attributes: size, position, and status (hit or not).
     """
     def __init__(self, name, size):
@@ -17,24 +17,29 @@ class Ship:
         """
         self.name = name
         self.size = size
-        self.positions = [] 
+        self.positions = []
         # List of tuples(x, y) for each ship segment
-        self.hits = 0 
+        self.hits = 0
         # Number of hits the ship has taken
         self.hit_positions = []
         # Initialise the hit positions list
 
-    def place(self, start_position, horizontal = True):
+    def place(self, start_position, horizontal=True):
         """
         places ship on game board
 
         takes a start position & orientation (horizontal/vertical).
         calculates ship's positions on board.
         """
-        self.positions = [(start_position[0] + i if horizontal else start_position[0], 
-                           start_position[1] if horizontal else start_position[1] + i) 
-                          for i in range(self.size)]
-
+        self.positions = [
+            (
+                start_position[0] + i if horizontal
+                else start_position[0],
+                start_position[1] if horizontal
+                else start_position[1] + i
+            )
+            for i in range(self.size)
+        ]
 
     def take_hit(self, hit_position):
         """
@@ -45,8 +50,6 @@ class Ship:
             # Track which parts of the ship have been hit
             self.hits += 1
 
-
-
     def is_sunk(self):
         """
         checks if ship is sunk
@@ -54,5 +57,3 @@ class Ship:
         :return: True if ship has been hit enough times to sink.
         """
         return self.hits >= self.size
-
-    
