@@ -1,8 +1,9 @@
-# Functions used across the project. 
+# Functions used across the project.
 # This include input validation, error handling, and any other reusable code.
 
-import sys 
-import time 
+import sys
+import time
+
 
 def display_game_instructions():
     """
@@ -30,7 +31,7 @@ def display_game_instructions():
         " ",
         "Before play, the game randomly arranges ships for both players.",
         "Ships occupy consecutive squares, arranged horizontally/vertically.",
-        "Ships cannot overlap. After positioning, the game proceeds in rounds.",
+        "Ships cannot overlap. After positioning, game proceeds in rounds.",
         "Players take turns announcing a target square to shoot at.",
         "If all your ships are sunk, the game ends and the opponent wins.",
         " ",
@@ -38,15 +39,19 @@ def display_game_instructions():
     ]
 
     typing_effect(border_line, speed=0.007)
-    typing_effect(center_text("B A T T L E S H I P S", ' '), end='|\n', speed = 0.01)
+    typing_effect(
+        center_text(
+            "B A T T L E S H I P S", ' '
+            ), end='|\n', speed=0.01)
     # Print the top border
 
-
     for line in instructions:
-        typing_effect(green_color_code + center_text(line) + reset_color_code, end='|\n', speed=0.01)
+        typing_effect(
+            green_color_code + center_text(line) + reset_color_code, end='|\n',
+            speed=0.01)
     # Print each line of the instructions
 
-    typing_effect(border_line, speed = 0.007)
+    typing_effect(border_line, speed=0.007)
     # Print the bottom border
 
     while True:
@@ -56,7 +61,12 @@ def display_game_instructions():
         elif user_input == 'n':
             return 'quit'
         else:
-            typing_effect("Please press 'y' to start the game or 'n' to return to the main menu." + reset_color_code)
+            typing_effect(
+                "Please press 'y' to start the game or "
+                "'n' to return to the main menu."
+                + reset_color_code
+                )
+
     # Wait for user input to continue
 
 
@@ -118,7 +128,8 @@ def convert_to_coords(input_str):
     :return: (int, int) tuple representing the coordinates (x, y).
     :raises: ValueError if input format is invalid.
     """
-    if len(input_str) != 2 or not input_str[0].isalpha() or not input_str[1].isdigit():
+    if (len(input_str) != 2 or not input_str[0].isalpha()
+            or not input_str[1].isdigit()):
         raise ValueError("Invalid input format.")
 
     x = ord(input_str[0].upper()) - ord('A')
