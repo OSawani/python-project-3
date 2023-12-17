@@ -33,7 +33,7 @@ def display_game_instructions():
         "Ships occupy consecutive squares, arranged horizontally/vertically.",
         "Ships cannot overlap. After positioning, game proceeds in rounds.",
         "Players take turns announcing a target square to shoot at.",
-        "If all your ships are sunk, the game ends and the opponent wins.",
+        "If more than 2 ships of a fleet are sunk, the game ends!",
         " ",
         "Press 'y' to start the game or 'n' to return to main menu"
     ]
