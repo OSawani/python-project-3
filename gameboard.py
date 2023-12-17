@@ -1,10 +1,11 @@
 from utils import is_within_board, typing_effect
 
+
 class GameBoard:
     def __init__(self, size=8):
         """
         sets up board with a default size of 8x8.
-        board is represented as a list of lists, 
+        board is represented as a list of lists,
         with ~ indicating water.
 
         :param size: The size of the board (size x size).
@@ -12,18 +13,18 @@ class GameBoard:
         self.size = size
         self.board = [["-" for _ in range(size)] for _ in range(size)]
         self.ships = []
-        # loop runs size times.
+        # Loop runs size times.
         # _ a variable name
-        # no intent to use the loop variable,
-        # the loop variable index is not needed.
+        # No intent to use the loop variable,
+        # The loop variable index is not needed.
 
-        #additional initialization
+        # dditional initialization
 
     def print_board(self, reveal_ships=False):
         """
         prints the game board to the console,
         displays the current state of the board in the console.
-        
+
         :param reveal_ships: If True, ships will be revealed on board.
         """
         color_reset = "\033[0m"
@@ -46,24 +47,31 @@ class GameBoard:
             # Convert number to letter
             board_content.append(f"{row_letter} | {row_str} | {row_letter}")
 
-        line_length = 4 * self.size + 3  # Length of line based on the board size
-        horizontal_padding = (80 - line_length) // 2  # Padding each side centers line
+        line_length = 4 * self.size + 3
+        # Length of line based on the board size
+        horizontal_padding = (80 - line_length) // 2
+        # Padding each side centers line
         # Calculate padding for the horizontal line
 
-        column_numbers = '   '.join([f"{color_column}{str(i + 1)}{color_reset}" for i in range(self.size)])
+        column_numbers = '   '.join(
+            [f"{color_column}{str(i + 1)}{color_reset}"
+             for i in range(self.size)]
+        )
         print(' ' * (horizontal_padding + 1) + '   ' + column_numbers)
         # Print the top column numbers (1, 2, 3, ...)
 
-        print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
+        print(' ' * horizontal_padding + color_line + '+'
+              + '-' * (line_length - 2) + '+' + color_reset)
+
         # Print the board content with horizontal lines
         for line in board_content:
-            typing_effect(' ' * horizontal_padding + line, speed = 0.008)
-            print(' ' * horizontal_padding + color_line + '+' + '-' * (line_length - 2) + '+' + color_reset)
+            typing_effect(' ' * horizontal_padding + line, speed=0.008)
+            print(' ' * horizontal_padding + color_line + '+'
+                  + '-' * (line_length - 2) + '+' + color_reset)
 
         print(' ' * (horizontal_padding + 1) + '   ' + column_numbers)
         # Print the bottom column numbers again
         print()  # Extra newline for better readability
-
 
     def place_ship(self, ship, position, horizontal):
         """
@@ -89,8 +97,6 @@ class GameBoard:
         else:
             return False
 
-    
-        
     def is_valid_placement(self, ship, position, horizontal):
         """
         checks if ship placement is within board boundaries
@@ -108,7 +114,6 @@ class GameBoard:
             if x >= self.size or y >= self.size or self.board[x][y] != "-":
                 return False
         return True
-
 
     def update_ship_hit(self, coordinates):
         """
@@ -129,7 +134,6 @@ class GameBoard:
                         return f"{ship.name} hit!"
         return ""
         # Return an empty string if no ship was hit
-        
 
     def take_shot(self, coordinates):
         """
@@ -147,7 +151,7 @@ class GameBoard:
         x, y = coordinates
         if self.board[x][y] in ["H", "M"]:
             return "Already hit"
-        
+
         hit_ship_info = self.update_ship_hit(coordinates)
         if "hit" in hit_ship_info or "sunk" in hit_ship_info:
             self.board[x][y] = "H"
@@ -155,8 +159,6 @@ class GameBoard:
         else:
             self.board[x][y] = "M"
             return "Miss"
-    
-
 
     def is_game_over(self):
         return all(ship.is_sunk() for ship in self.ships)
