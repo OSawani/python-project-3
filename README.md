@@ -28,25 +28,25 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 ## Project Goals
 
 - __User Goals__
-    - Engaging and intuitive gameplay
-    - Reliable and responsive interaction
-    - Easy to understand instructions
+    - Engaging and intuitive gameplay.
+    - Reliable and responsive interaction.
+    - Easy to understand instructions.
 
 - __Site Owner Goals__
-    - Showcase programming skills
-    - Provide an enjoyable game experience
-    - Encourage user engagement and feedback
+    - Showcase programming skills.
+    - Provide an enjoyable game experience.
+    - Encourage user engagement and feedback.
 
 [Back to Table of Contents](#table-of-contents)
 
 ## User Experience
 
 - __Target Audience__
-    - Casual gamers
-    - Fans of strategy games
+    - Casual gamers.
+    - Fans of strategy games.
     - Individuals looking to improve their decision-making and planning skills.
     - Players seeking a quick and accessible game experience via the command line.
-    - Individuals interested in command-line applications
+    - Individuals interested in command-line applications.
 
 - __User Stories__
     - As a player, I want to enjoy a challenging and fair game.
@@ -60,13 +60,15 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 ## Design
 
 - __Design Choices__
-    - Simple, text-based interface for easy navigation
-    - Clear and concise instructions for user guidance
-    - Strategic use of colors to enhance user experience
+    - Simple, text-based interface for easy navigation.
+    - Clear and concise instructions for user guidance.
+    - Strategic use of colors to enhance user experience.
 
 - __Flowchart__
-    - The game flow was planned with a detailed flowchart, ensuring a logical progression and a smooth user experience.
+    - The game flow was planned with a detailed flowchart, ensuring a logical progression and a smooth user experience. The first screenshot illustrates the navigation logic and the main menu loop.
     ![Flowchart](images/flowchart_1.png)
+
+    - The second screenshot illustrates the game loop. 
     ![Flowchart](images/flowchart_2.png)
 
 [Back to Table of Contents](#table-of-contents)
@@ -88,12 +90,13 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 #### Game play
 
 - On the welcome screen, the user is greeted with the game's name and a prompt to enter their name for a personalized experience.
+![Gameplay](images/player_name.png)
+
 - Users engage in strategic gameplay against a computer opponent.
 - The game's interface displays hit or miss feedback and updates on ship status.
-- The game's loop allows for viewing pc attacks and exiting midgame anytime the user wishes.
-
-![Gameplay](images/player_name.png)
 ![Gameplay](images/game_loop.png)
+
+- The game's loop allows for viewing pc attacks and exiting midgame anytime the user wishes.
 ![Gameplay](images/game_loop_2.png)
 
 
@@ -128,16 +131,42 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 - All Python modules were thoroughly tested and validated using CI Python linters to ensure code quality and adherence to Pythonic conventions PEP8.
 - Errors were all related to four main issues, trailing white spaces, line length, indentation levels and spaces around keyword/parameter "="
 
-- E501 line too long (117 > 79 characters)
-- W291 trailing whitespace
-- E302 expected 2 blank lines, found 1
-- E251 unexpected spaces around keyword / parameter equals
-- W293 blank line contains whitespace
-- E101 indentation contains mixed spaces and tabs
-- W191 indentation contains tabs
-- E306 expected 1 blank line before a nested definition, found 0
+##### E501 line too long (117 > 79 characters)
+- **Cause:** Lines exceeding the maximum recommended length of 79 characters, affecting readability.
+- **Solution:** Broke long lines into shorter ones using parentheses, line continuation character `\`, and reformatting.
 
+##### W291 trailing whitespace
+- **Cause:** Unnecessary whitespace characters at the end of a line.
+- **Solution:** Removed any extra spaces at the end of lines.
+
+##### E302 expected 2 blank lines, found 1
+- **Cause:** Not adhering to PEP 8's guideline of two blank lines before top-level function or class definitions.
+- **Solution:** Added an extra blank line before such definitions to meet the requirement.
+
+##### E251 unexpected spaces around keyword / parameter equals
+- **Cause:** Spaces found around an equals sign in keyword arguments or parameter assignments.
+- **Solution:** Removed spaces around the equals sign in these contexts.
+
+##### W293 blank line contains whitespace
+- **Cause:** Blank lines containing spaces or tabs.
+- **Solution:** Ensured blank lines are completely empty.
+
+##### E101 indentation contains mixed spaces and tabs
+- **Cause:** Use of both spaces and tabs for indentation in the same file.
+- **Solution:** Used only one type, spaces).
+
+##### W191 indentation contains tabs
+- **Cause:** Tabs used for indentation instead of spaces.
+- **Solution:** Replaced tabs with spaces for indentation (one tab equals four spaces).
+
+##### E306 expected 1 blank line before a nested definition, found 0
+- **Cause:** No blank line before a nested function or class definition within another function or class.
+- **Solution:** Added one blank line before the nested definition.
+
+- Errors before fixing
 ![Linters](images/linter_errors.png)
+
+- All five modules: run.py, gameboard.py, ship.py, utils.py, and leaderboard.py after addressing the issues above, the code is now more standardized, readable, and maintainable, adhering to Python's PEP8 styling guide.
 ![Validation](images/linter_run.png)
 ![Validation](images/linter_gameboard.png)
 ![Validation](images/linter_ship.png)
@@ -145,13 +174,19 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 ![Validation](images/linter_leaderboard.png)
 
 #### Validation Error-based Fixes
-- Navigation menu validation
+- Navigation menu validation, welcome screen
 ![validation](images/error_based_validation_welcome_screen.png)
+
+- Navigation menu validation, game rules screen
 ![validation](images/error_based_validation_game_rules.png)
+
+- Navigation menu validation, change difficulty screen
 ![validation](images/error_based_validation_change_difficulty.png)
 
-- Game loop validation
+- Game loop validation, out of range coordinates
 ![validation](images/error_based_validation_out_of_range.png)
+
+- Game loop validation, invalid input format
 ![validation](images/error_based_validation_game_coords.png)
 
 
