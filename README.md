@@ -258,7 +258,8 @@ Live link - [Battleship](https://python-project-bs-game-0c8cb15b2dbe.herokuapp.c
 ### Forking in GitHub
 
 - Instructions on how to fork the repository for personal modification and contribution:
-- Go to the GitHub repository: Battleship GitHub Repository.
+- Go to the GitHub repository: 
+[Battleship Repository](https://github.com/OSawani/python-project-3).
 - Click the 'Fork' button on the top right corner of the repository page.
 - You will be redirected to your fork of the repository. This version is a copy of the original.
 - You can now make changes, add features, fix issues, or modify the code within your fork. 
