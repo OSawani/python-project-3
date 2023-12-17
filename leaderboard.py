@@ -24,7 +24,7 @@ class Leaderboard:
         """
         if player_name not in self.scores:
             self.scores[player_name] = {'wins': 0, 'losses': 0}
-        
+
         if won:
             self.scores[player_name]['wins'] += 1
         else:
@@ -39,7 +39,6 @@ class Leaderboard:
             wins, losses = scores['wins'], scores['losses']
             print(f"{player} - Wins: {wins}, Losses: {losses}")
 
-
     def save_to_file(self, filename="leaderboard.txt"):
         """
         saves leaderboard to a file.
@@ -48,8 +47,10 @@ class Leaderboard:
         """
         with open(filename, 'w') as file:
             for player, score in self.scores.items():
-                file.write(f"{player}: {score['wins']} wins, {score['losses']} losses\n")
-
+                file.write(
+                    f"{player}: {score['wins']} wins, "
+                    f"{score['losses']} losses\n"
+                    )
 
     def load_from_file(self, filename="leaderboard.txt"):
         """
@@ -65,16 +66,21 @@ class Leaderboard:
                     wins, losses = [int(s.split()[0]) for s in scores]
                     self.scores[player] = {'wins': wins, 'losses': losses}
         except FileNotFoundError:
-            print(f"No saved leaderboard found at '{filename}'. Starting fresh.")
+            print(
+                f"No saved leaderboard found at '{filename}'. Starting fresh."
+                )
         except Exception as e:
             print(f"Error loading leaderboard from '{filename}': {e}")
-
 
     def display_sorted_leaderboard(self):
         """
         displays leaderboard sorted by the number of wins.
         """
-        sorted_scores = sorted(self.scores.items(), key=lambda x: x[1]['wins'], reverse=True)
+        sorted_scores = sorted(
+            self.scores.items(),
+            key=lambda x: x[1]['wins'],
+            reverse=True
+        )
         print("\n ****** Leaderboard (Sorted by Wins) ******")
         for player, scores in sorted_scores:
             wins, losses = scores['wins'], scores['losses']
