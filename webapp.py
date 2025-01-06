@@ -1,4 +1,5 @@
 from pywebio import start_server
+import os
 from pywebio.output import *
 from pywebio.input import *
 from gameboard import GameBoard
