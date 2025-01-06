@@ -225,4 +225,5 @@ def place_ships_randomly(game_board, ships, board_size):
             placed = game_board.place_ship(ship, (x, y), horizontal)
 
 if __name__ == "__main__":
-    start_server(main, port=8080, debug=True)
+    port = int(os.environ.get("PORT", 8080))
+    start_server(main, port=port, debug=True)
